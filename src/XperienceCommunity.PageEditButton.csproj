@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Kentico.Xperience.Admin" />
+		<PackageReference Include="Kentico.Xperience.webapp" />
+	</ItemGroup>
+
+	<PropertyGroup>
+		<Title>Xperience by Kentico Page Edit Button</Title>
+		<PackageId>XperienceCommunity.PageEditButton</PackageId>
+		<Version>0.9.6</Version>
+		<Authors>Liam Goldfinch</Authors>
+		<Company>Liam Goldfinch</Company>
+		<PackageIcon>icon.png</PackageIcon>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageTags>kentico xperience mvc core</PackageTags>
+		<Description>
+			This package provides content editors with a button to quickly navigate to the page in the Xperience by Kentico administration interface.
+		</Description>
+		<RepositoryUrl>https://github.com/liamgold/xperience-community-page-edit-button</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="images\icon.png" Pack="true" PackagePath="" />
+		<None Include="..\README.md" Pack="true" PackagePath="" />
+		<None Include="..\LICENSE.md" Pack="true" PackagePath="" />
+	</ItemGroup>
+
+</Project>
