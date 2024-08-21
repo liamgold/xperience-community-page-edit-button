@@ -13,7 +13,7 @@ In older versions of Kentico using Portal Engine (ASP.NET Web Forms), this funct
 With this package, you can add a similar button to your Xperience by Kentico website channels. It will be displayed in the bottom right corner of the page:
 
 
-![Xperience by Kentico Page Edit Button](src/images/new-edit-page.png)
+![Xperience by Kentico Page Edit Button](src/images/new-edit-page.PNG)
 
 ## Library Version Matrix
 
