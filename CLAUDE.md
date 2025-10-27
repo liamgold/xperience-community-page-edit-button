@@ -67,7 +67,7 @@ Both the TagHelper and ViewComponent implement identical logic:
 ## Key Dependencies
 
 - `Kentico.Xperience.Admin` - Admin interface integration
-- `Kentico.Xperience.webapp` - Web application APIs
+- `Kentico.Xperience.WebApp` - Web application APIs
 - Both pinned to version 29.1.4
 
 ## Static Assets
