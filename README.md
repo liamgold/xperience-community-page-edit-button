@@ -4,7 +4,7 @@
 
 This package provides content editors with a button displayed on web channel pages, that allows them to quickly navigate to the right place in the Xperience by Kentico administration interface to edit the page.
 
-**NOTE**: As mentioned in a [Q&A discussion](https://community.kentico.com/q-and-a/q/check-website-visitor-is-authenticated-in-admin-site-16a9ba36#answer_d001c14a11184f55babb1807bb48b5c5), this button will only appear if the user is authenticated to an admin portal that is on the **same** domain as the front-end site.
+**NOTE**: As mentioned in a [Q&A discussion](https://community.kentico.com/q-and-a/q/check-website-visitor-is-authenticated-in-admin-site-16a9ba36#answer_d001c14a11184f55babb1807bb48b5c5), this button will only appear if the user is authenticated to an admin portal that is on the **same domain** as the front-end site. For subdomain scenarios (e.g., `admin.domain.com` for admin and `www.domain.com` for the site), see the [Configuration](#configuration) section below.
 
 In older versions of Kentico using Portal Engine (ASP.NET Web Forms), this functionality was provided through a button like this:
 
@@ -19,7 +19,7 @@ With this package, you can add a similar button to your Xperience by Kentico web
 
 | Xperience Version | Library Version |
 | ----------------- | --------------- |
-| >= 29.1.4         | 1.0.0           |
+| >= 29.1.4         | 1.0.0+          |
 
 ## Dependencies
 
@@ -54,6 +54,52 @@ dotnet add package XperienceCommunity.PageEditButton
    ```    
 
 1. Load a page after authenticating to the Xperience by Kentico administration interface. The button will appear in the bottom right corner of the page.
+
+## Configuration
+
+### Admin Domain Configuration (For Subdomain Scenarios)
+
+If your Xperience administration interface is hosted on a **subdomain** (e.g., `admin.domain.com`) separate from your website channels (e.g., `www.domain.com`, `shop.domain.com`), you need to configure the admin domain so the edit button generates the correct URL.
+
+**Example scenario:**
+- Website channels: `www.domain.com`, `shop.domain.com`
+- Admin interface: `admin.domain.com`
+
+Without configuration, the button would incorrectly link to `https://www.domain.com/admin/...` instead of `https://admin.domain.com/admin/...`
+
+**Important:** This configuration only works for **subdomains of the same root domain** (e.g., `admin.domain.com` and `www.domain.com`). This is because the button visibility depends on authentication cookies, which must be shared across the subdomains. For completely different domains, the authentication cookie will not be accessible and the button will not appear.
+
+To share authentication cookies across subdomains, you must configure your authentication cookie domain in your application's authentication setup (e.g., setting the cookie domain to `.domain.com`).
+
+#### Setup Instructions
+
+1. Add the following configuration to your `appsettings.json`:
+
+   ```json
+   {
+     "PageEditButtonOptions": {
+       "AdminDomain": "admin.domain.com"
+     }
+   }
+   ```
+
+2. Register the options in your `Program.cs`:
+
+   ```csharp
+   using XperienceCommunity.PageEditButton.Options;
+
+   var builder = WebApplication.CreateBuilder(args);
+
+   // Register PageEditButton options
+   builder.Services.Configure<PageEditButtonOptions>(
+       builder.Configuration.GetSection("PageEditButtonOptions"));
+
+   // ... rest of your configuration
+   ```
+
+3. The edit button will now generate absolute URLs pointing to your configured admin domain.
+
+**Note:** If you don't configure an admin domain, the button will use relative URLs (current domain), which works fine for single-domain setups or when the admin is hosted at `/admin` on the same domain as your website channel.
 
 ## Contributing
 
